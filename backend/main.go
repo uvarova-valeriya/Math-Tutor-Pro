@@ -37,21 +37,38 @@ func main() {
 
 		switch update.Message.Command() {
 		case "start":
-			// Простая клавиатура без Web App
+			// Создаем обычную кнопку-ссылку
+			webAppBtn := tgbotapi.NewInlineKeyboardButtonURL(
+				"📊 Открыть приложение",
+				"https://uvarova-valeriya.github.io/Math-Tutor-Pro",
+			)
+
+			keyboard := tgbotapi.NewInlineKeyboardMarkup(
+				tgbotapi.NewInlineKeyboardRow(webAppBtn),
+			)
+
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID,
 				"🤖 Добро пожаловать в Math Tutor Pro!\n\n"+
 					"Я помогу вам анализировать прогресс учеников и создавать персонализированные домашние задания.\n\n"+
-					"Команды:\n"+
-					"/progress - Прогресс учеников\n"+
-					"/webapp - Получить ссылку на веб-приложение\n\n"+
-					"🔗 Веб-приложение: https://your-app.com")
+					"Нажмите кнопку ниже чтобы открыть приложение!")
+			msg.ReplyMarkup = keyboard
 
 			bot.Send(msg)
 
 		case "webapp":
+			webAppBtn := tgbotapi.NewInlineKeyboardButtonURL(
+				"📊 Открыть приложение",
+				"https://uvarova-valeriya.github.io/Math-Tutor-Pro",
+			)
+
+			keyboard := tgbotapi.NewInlineKeyboardMarkup(
+				tgbotapi.NewInlineKeyboardRow(webAppBtn),
+			)
+
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID,
-				"🔗 Ссылка на веб-приложение:\nhttps://your-app.com\n\n"+
-					"(Web App кнопка будет добавлена в следующем обновлении)")
+				"🔗 Откройте веб-приложение:")
+			msg.ReplyMarkup = keyboard
+
 			bot.Send(msg)
 		}
 	}
